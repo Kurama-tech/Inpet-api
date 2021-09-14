@@ -51,6 +51,5 @@ jobs:
         parameters: '{"apitoken": "${{ env.OPENSHIFT_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |
           'project msawood-stage'
-          'process -f ./k8s/template.yaml > temp.yaml'
-          'apply -f temp.yaml'
+          'process -f ./k8s/template.yaml | oc apply -f - '
           'status'
