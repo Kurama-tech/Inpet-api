@@ -20,6 +20,17 @@ objects:
     selector:
       app: api-server
     type: LoadBalancer
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: ${API_SERVICE_NAME}
+  spec:
+    port:
+      targetPort: "32000"
+    host: ${API_SERVICE_NAME}
+    to:
+      kind: Service
+      name: ${API_SERVICE_NAME}
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
