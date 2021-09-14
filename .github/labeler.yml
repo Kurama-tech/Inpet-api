@@ -1,0 +1,30 @@
+repo:
+- '*'
+
+# Add 'test' label to any change to *.spec.js files within the source dir
+test:
+- test/**/*.js
+- test/**/*.spec.js
+
+documentation:
+- README.md
+
+# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+route:
+- any: ['routes/*']
+
+source:
+- any: ['app.js']
+
+nodejs-conf:
+- any: ['package.json', 'package-lock.json']
+
+server-conf:
+- any: ['processes.json', 'bin/www']
+
+# Add 'frontend` label to any change to *.js files as long as the `main.js` hasn't changed
+ui:
+- any: ['views/*']
+
+assets:
+- any: ['public/*']
