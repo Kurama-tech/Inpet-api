@@ -27,7 +27,6 @@ objects:
   spec:
     port:
       targetPort: "32000"
-    host: ${API_SERVICE_NAME}
     to:
       kind: Service
       name: ${API_SERVICE_NAME}
