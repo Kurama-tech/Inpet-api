@@ -35,7 +35,6 @@ objects:
         labels:
           app: api-server
       spec:
-        replicas: 1
         containers:
         - env:
           - name: MONGO_DB_URL
