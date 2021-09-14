@@ -47,8 +47,8 @@ jobs:
       uses: redhat-developer/openshift-actions@v1.1
       with:
         version: 'latest'
-        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
-        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
+        openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+        parameters: '{"apitoken": "${{ env.OPENSHIFT_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |
           'project msawood-stage'
           'process -f k8s/template.yaml > temp.yaml'
