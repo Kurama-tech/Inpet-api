@@ -46,7 +46,7 @@ objects:
             limits:
               memory: ${MEMORY_LIMIT}
               cpu: ${CPU_LIMIT}
-          image: ${API_SERVER_IMAGE}:${API_SERVER_IMAGE_TAG}
+          image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: Always
           name: ${API_SERVICE_NAME}
           ports:
@@ -87,11 +87,11 @@ parameters:
   value: inpet-api-server
 - description: The name of the MongoDB imagestream to be used
   displayName: Name of MongoDB Image
-  name: API_SERVER_IMAGE
+  name: IMAGE
   value: quay.io/kurama/inpet-api
 - description: Version of MongoDB image to be used (3.4.x or latest).
   displayName: Version of MongoDB Image
-  name: API_SERVER_IMAGE_TAG
+  name: IMAGE_TAG
   required: true
   value: "latest"
 - description: The name of the OpenShift Service exposed for the database.

@@ -8,6 +8,7 @@ env:
 
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  OPENSHIFT_NAMESPACE: msawood-stage
   APP_NAME: "inpet-api"
   TAG: ""
 
@@ -43,13 +44,16 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ env.REGISTRY_USER }}
         password: ${{ env.REGISTRY_PASSWORD }}
-    - name: OpenShift Action
-      uses: redhat-developer/openshift-actions@v1.1
+    - name: Install oc
+      uses: redhat-actions/oc-installer@v1
       with:
-        version: 'latest'
+        oc_version: '4.6'
+    - name: Authenticate and set context
+      uses: redhat-actions/oc-login@v1
+      with:
         openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-        parameters: '{"apitoken": "${{ env.OPENSHIFT_TOKEN }}", "acceptUntrustedCerts": "true"}'
-        cmd: |
-          'project msawood-stage'
-          'process -f ./k8s/template.yaml | apply -f -'
-          'status'
+        openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+        insecure_skip_tls_verify: true
+        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+    - name: Deploy
+      run: oc process --local -f k8s/template.yaml -p IMAGE_TAG=${{ env.TAG }} | oc apply -f -
