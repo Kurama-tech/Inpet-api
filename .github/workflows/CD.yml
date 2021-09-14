@@ -50,6 +50,7 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
         parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |
+          'project msawood-stage'
           'process -f k8s/template.yaml > temp.yaml'
           'apply -f temp.yaml'
           'status'
