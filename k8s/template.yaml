@@ -85,11 +85,6 @@ parameters:
   name: API_SERVICE_NAME
   required: true
   value: inpet-api-server
-- description: Name of the MongoDB api-server accessed.
-  displayName: MongoDB api-server Name
-  name: MONGODB_api-server
-  required: true
-  value: inpet-db
 - description: The name of the MongoDB imagestream to be used
   displayName: Name of MongoDB Image
   name: API_SERVER_IMAGE
@@ -99,3 +94,8 @@ parameters:
   name: API_SERVER_IMAGE_TAG
   required: true
   value: "latest"
+- description: The name of the OpenShift Service exposed for the database.
+  displayName: Database Service Name
+  name: DATABASE_SERVICE_NAME
+  required: true
+  value: inpet-db
