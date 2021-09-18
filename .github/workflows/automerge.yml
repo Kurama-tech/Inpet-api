@@ -29,6 +29,6 @@ jobs:
           MERGE_METHOD: "squash"
           MERGE_REQUIRED_APPROVALS: 1
           MERGE_COMMIT_MESSAGE: "pull-request-title"
-          MERGE_FORKS: "false"
+          MERGE_FORKS: "true"
           UPDATE_LABELS: "please-rebase"
           UPDATE_METHOD: "rebase"
