@@ -3,15 +3,26 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "pm2": "pm2 start processes.json --no-daemon",
+    "start": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^6.0.5",
+<<<<<<< HEAD
+=======
+    "mocha": "^9.1.1",
+>>>>>>> c6fcc60c6b4b0483a1cfafad30246de72f6755f1
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "supertest": "^6.1.6"
   }
 }

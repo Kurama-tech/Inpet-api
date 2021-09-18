@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: Template
+labels:
+        template: inpet-api
+metadata:
+  name: inpet-api
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${API_SERVICE_NAME}
+    labels:
+      app: api-server
+  spec:
+    ports:
+     - protocol: TCP
+       name: http
+       port: 32000
+       targetPort: 5000
+    selector:
+      app: api-server
+    type: LoadBalancer
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: ${API_SERVICE_NAME}
+  spec:
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: ${API_SERVICE_NAME}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+        app: api-server
+    name: ${API_SERVICE_NAME}
+  spec:
+    selector:
+      matchLabels:
+        app: api-server
+    template:
+      metadata:
+        labels:
+          app: api-server
+      spec:
+        containers:
+        - env:
+          - name: MONGO_DB_URL
+            valueFrom:
+                secretKeyRef:
+                    key: mongodb-url
+                    name: ${DATABASE_SERVICE_NAME}
+          resources:
+            limits:
+              memory: ${MEMORY_LIMIT}
+              cpu: ${CPU_LIMIT}
+          image: ${IMAGE}:${IMAGE_TAG}
+          imagePullPolicy: Always
+          name: ${API_SERVICE_NAME}
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            timeoutSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+            tcpSocket:
+              port: 5000
+          readinessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            failureThreshold: 3
+            successThreshold: 1
+            tcpSocket:
+              port: 5000
+            timeoutSeconds: 10
+        restartPolicy: Always
+parameters:
+- description: Maximum amount of memory the container can use.
+  displayName: Memory Limit
+  name: MEMORY_LIMIT
+  required: true
+  value: 512Mi
+- description: Maximum amount of cpu the container can use.
+  displayName: CPU Limit
+  name: CPU_LIMIT
+  required: true
+  value: 350m
+- description: The name of the OpenShift Service exposed for the api.
+  displayName: API Service Name
+  name: API_SERVICE_NAME
+  required: true
+  value: inpet-api-server
+- description: The name of the MongoDB imagestream to be used
+  displayName: Name of MongoDB Image
+  name: IMAGE
+  value: quay.io/kurama/inpet-api
+- description: Version of MongoDB image to be used (3.4.x or latest).
+  displayName: Version of MongoDB Image
+  name: IMAGE_TAG
+  required: true
+  value: "latest"
+- description: The name of the OpenShift Service exposed for the database.
+  displayName: Database Service Name
+  name: DATABASE_SERVICE_NAME
+  required: true
+  value: inpet-db
