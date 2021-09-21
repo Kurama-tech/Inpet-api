@@ -30,8 +30,8 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
 }
 async function connectDB(){
 try {
-    await moongoose.connect(DB_URL+DB_NAME, function(error){
-        throw error;
+    moongoose.connect(DB_URL + DB_NAME, function(error) {
+        console.log('Error connecting to DB ::', error);
     });
     console.log('Connected Successfully');
     return moongoose.connection;
