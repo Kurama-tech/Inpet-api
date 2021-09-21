@@ -13,6 +13,7 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
     console.log(process.env.MONGO_USERNAME);
     options = {
         dbName: DB_NAME,
+        authSource: 'admin',
         user: USER,
         pass: PASS,
         keepAlive: true,
