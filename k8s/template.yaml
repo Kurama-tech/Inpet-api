@@ -57,6 +57,16 @@ objects:
                 secretKeyRef:
                     key: mongodb-url
                     name: ${DATABASE_SERVICE_NAME}
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                  key: inpet-db-user
+                  name: ${DATABASE_SERVICE_NAME}
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                  key: inpet-db-password
+                  name: ${DATABASE_SERVICE_NAME}
           resources:
             limits:
               memory: ${MEMORY_LIMIT}
