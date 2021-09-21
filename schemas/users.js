@@ -8,14 +8,18 @@ const DB_NAME = process.env.MONGO_DB_NAME;
 var options = {};
 if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
     console.log('It is set! running in prod mode!');
+    var USER = process.env.MONGO_USERNAME;
+    var PASS = process.env.MONGO_PASSWORD;
     console.log(process.env.MONGO_USERNAME);
     options = {
         dbName: DB_NAME,
-        user: process.env.MONGO_USERNAME,
-        pass: process.env.MONGO_PASSWORD,
+        user: USER,
+        pass: PASS,
         keepAlive: true,
         keepAliveInitialDelay: 300000,
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+          
     }
 } else {
     options = {
@@ -25,7 +29,9 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
 }
 async function connectDB(){
 try {
-    await moongoose.connect(DB_URL, options);
+    await moongoose.connect(DB_URL, {user: USER, pass: PASS }, function(error){
+        throw error;
+    });
     console.log('Connected Successfully');
     return moongoose.connection;
  } catch (error) {
