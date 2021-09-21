@@ -1,6 +1,8 @@
 const dotenv = require('dotenv').config();
 const moongoose = require('mongoose');
-const DB_URL = process.env.MONGODB_URL;
+const {supplierSchema} = require('./supplierSchema');
+const {customerSchema} = require('./customerSchema');
+const DB_URL = process.env.MONGO_DB_URL;
 moongoose.connect(DB_URL);
 
 var db = moongoose.connection;
@@ -11,3 +13,5 @@ const UsersSchema = moongoose.Schema({
 
 module.exports.db = moongoose;
 module.exports.users = moongoose.model('users', UsersSchema);
+module.exports.suppliers = moongoose.model('suppliers', supplierSchema);
+module.exports.customers = moongoose.model('customers', customerSchema);
