@@ -6,17 +6,15 @@ const DB_URL = process.env.MONGO_DB_URL;
 
 async function connectDB(){
 try {
-    await moongoose.connect(DB_URL);
+    await moongoose.connect(DB_URL+'inpet');
     console.log('Connected Successfully');
-    //moongoose.connection.useDb('inpet');
+    return moongoose.connection.useDb('inpet');
  } catch (error) {
     console.log('Error connecting to DB ::', error);
 }
 }
 
-connectDB();
-
-var db = moongoose.connection.useDb('inpet');
+var db = connectDB();
 
 const UsersSchema = moongoose.Schema({
     name: String
