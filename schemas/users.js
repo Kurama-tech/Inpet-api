@@ -22,7 +22,7 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
 }
 async function connectDB(){
 try {
-    await moongoose.connect(DB_URL, options);
+    await moongoose.connect(DB_URL+DB_NAME);
     console.log('Connected Successfully');
     return moongoose.connection;
  } catch (error) {
