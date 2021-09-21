@@ -8,7 +8,7 @@ async function connectDB(){
 try {
     await moongoose.connect(DB_URL);
     console.log('Connected Successfully');
-    moongoose.connection.useDb('inpet');
+    //moongoose.connection.useDb('inpet');
  } catch (error) {
     console.log('Error connecting to DB ::', error);
 }
@@ -16,7 +16,7 @@ try {
 
 connectDB();
 
-var db = moongoose.connection;
+var db = moongoose.connection.useDb('inpet');
 
 const UsersSchema = moongoose.Schema({
     name: String
