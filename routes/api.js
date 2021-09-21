@@ -43,7 +43,7 @@ router.post('/add/supplier', async function(req, res, next){
     } 
 });
 
-router.post('/add/supplier', async function(req, res, next){
+router.post('/add/customers', async function(req, res, next){
     let incommingdata = req.body
     console.log(typeof(incommingdata))
     var TobeInserted = getModel(customers, incommingdata);
