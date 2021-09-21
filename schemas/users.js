@@ -12,7 +12,10 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
     options = {
         dbName: DB_NAME,
         user: process.env.MONGO_USERNAME,
-        pass: process.env.MONGO_PASSWORD
+        pass: process.env.MONGO_PASSWORD,
+        keepAlive: true,
+        keepAliveInitialDelay: 300000,
+        useNewUrlParser: true
     }
 } else {
     options = {
@@ -22,7 +25,7 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
 }
 async function connectDB(){
 try {
-    await moongoose.connect(DB_URL+DB_NAME);
+    await moongoose.connect(DB_URL, options);
     console.log('Connected Successfully');
     return moongoose.connection;
  } catch (error) {
