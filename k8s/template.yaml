@@ -55,7 +55,7 @@ objects:
           - name: MONGO_DB_URL
             valueFrom:
                 secretKeyRef:
-                    key: basic-url
+                    key: mongodb-url
                     name: ${DATABASE_SERVICE_NAME}
           - name: MONGO_USERNAME
             valueFrom:
