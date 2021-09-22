@@ -15,10 +15,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^6.0.5",
-<<<<<<< HEAD
-=======
     "mocha": "^9.1.1",
->>>>>>> c6fcc60c6b4b0483a1cfafad30246de72f6755f1
     "morgan": "~1.9.1"
   },
   "devDependencies": {
