@@ -1,0 +1,28 @@
+
+{
+"supplier" : {
+    "SName": "Meer Sawood",
+    "SID": "INPETS1",
+    "SEmail": "sawoodrocket@gmail.com",
+    "SPhone": 8123303633,
+    "SAddress": {
+        "City": "channapatna",
+        "State": "karnataka",
+        "PinCode": 562160,
+        "Country": "India"
+    },
+    "Contact": {
+        "Name": "Sawood",
+        "Email": "sawoodrocket@gmail.com",
+        "No": 8123303633
+    },
+    "SGSTIN": "12345HGJKI9873",
+    "BankingDetails": {
+        "BankName": "Axis",
+        "AccountName": "Sawood",
+        "AccountType": "Savings",
+        "IFSC": "KARB00001"
+    },
+    "Nature": "Company"
+  }
+}

@@ -47,11 +47,26 @@ objects:
       spec:
         containers:
         - env:
+          - name: MONGO_DB_NAME
+            valueFrom:
+                secretKeyRef:
+                    key: inpet-db-name
+                    name: ${DATABASE_SERVICE_NAME}
           - name: MONGO_DB_URL
             valueFrom:
                 secretKeyRef:
                     key: mongodb-url
                     name: ${DATABASE_SERVICE_NAME}
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                  key: inpet-db-user
+                  name: ${DATABASE_SERVICE_NAME}
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                  key: inpet-db-password
+                  name: ${DATABASE_SERVICE_NAME}
           resources:
             limits:
               memory: ${MEMORY_LIMIT}
