@@ -10,7 +10,7 @@ function getModel(mode, incommingdata){
         SID: incommingdata.SID,
         SEmail: incommingdata.SEmail,
         SPhone: incommingdata.SPhone,
-        SAdress: incommingdata.SAdress,
+        SAddress: incommingdata.SAddress,
         Contact: incommingdata.Contact,
         SGSTIN: incommingdata.SGSTIN,
         BankingDetails: incommingdata.BankingDetails ,
@@ -32,6 +32,7 @@ router.post('/add/supplier', async function(req, res, next){
     let incommingdata = req.body
     console.log(typeof(incommingdata))
     var TobeInserted = getModel(suppliers, incommingdata);
+    console.log(TobeInserted);
     try {
         await TobeInserted.save(function(err, resp){
             if (err) throw err;
