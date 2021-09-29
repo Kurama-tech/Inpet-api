@@ -17,6 +17,7 @@ function getModel(mode, incommingdata){
         Nature: incommingdata.Nature
      });
 }
+
 //GET Operation
 router.get('/get/suppliers', async function(req,res){
     let data = await suppliers.find({}).exec();
@@ -35,7 +36,7 @@ router.post('/add/supplier', async function(req, res, next){
     console.log(TobeInserted);
     try {
         await TobeInserted.save(function(err, resp){
-            if (err) throw err;
+            if (err) res.status(400).send("unwanted error!! "+ err.message);
             console.log("inserted one record: "+ resp);
             res.status(200).send(resp);
         });
@@ -48,15 +49,68 @@ router.post('/add/customers', async function(req, res, next){
     let incommingdata = req.body
     console.log(typeof(incommingdata))
     var TobeInserted = getModel(customers, incommingdata);
+    console.log(TobeInserted);
     try {
         await TobeInserted.save(function(err, resp){
-            if (err) throw err;
+            if (err) res.status(400).send("unwanted error!! "+ err.message);
             console.log("inserted one record: "+ resp);
             res.status(200).send(resp);
         });
     } catch (error) {
         res.status(408).send("unwanted error!! "+ error);
     } 
+});
+
+router.put('/edit/supplier/:id/:sid', async function(req, res, next){
+    let id = req.params.id;
+    let oldSid = req.params.sid;
+    let incommingdata = req.body;
+    console.log(typeof(incommingdata))
+    var query = {_id: id, SID: oldSid};
+    let update = {
+        SName: incommingdata.SName,
+        SID: incommingdata.SID,
+        SEmail: incommingdata.SEmail,
+        SPhone: incommingdata.SPhone,
+        SAddress: incommingdata.SAddress,
+        Contact: incommingdata.Contact,
+        SGSTIN: incommingdata.SGSTIN,
+        BankingDetails: incommingdata.BankingDetails ,
+        Nature: incommingdata.Nature
+    };
+    let options = {upsert: true, new: true, setDefaultsOnInsert: true};
+        await suppliers.findOneAndUpdate(query,update,options,function(err, resp){
+            if (err) throw res.status(400).send("unwanted error!! "+ err.message);;
+            console.log(err);
+            console.log("Updated one record: "+ resp);
+            res.status(200).send(resp);
+        });
+});
+
+router.put('/edit/customer/:id/:sid', async function(req, res, next){
+    let id = req.params.id;
+    let oldSid = req.params.sid;
+    let incommingdata = req.body;
+    console.log(typeof(incommingdata))
+    var query = {_id: id, SID: oldSid};
+    let update = {
+        SName: incommingdata.SName,
+        SID: incommingdata.SID,
+        SEmail: incommingdata.SEmail,
+        SPhone: incommingdata.SPhone,
+        SAddress: incommingdata.SAddress,
+        Contact: incommingdata.Contact,
+        SGSTIN: incommingdata.SGSTIN,
+        BankingDetails: incommingdata.BankingDetails ,
+        Nature: incommingdata.Nature
+    };
+    let options = {upsert: true, new: true, setDefaultsOnInsert: true};
+        await customers.findOneAndUpdate(query,update,options,function(err, resp){
+            if (err) throw res.status(400).send("unwanted error!! "+ err.message);;
+            console.log(err);
+            console.log("Updated one record: "+ resp);
+            res.status(200).send(resp);
+        });
 });
 
 //POST Request

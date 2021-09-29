@@ -2,7 +2,7 @@ const moongoose = require('mongoose');
 
 const customerSchema = moongoose.Schema({
     SName: String,
-    SID: String,
+    SID: {type: String, unique : true, required : true, dropDups: true},
     SEmail: String,
     SPhone: Number,
     SGSTIN: String,

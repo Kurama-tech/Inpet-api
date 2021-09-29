@@ -2,7 +2,7 @@ const moongoose = require('mongoose');
 
 const supplierSchema = moongoose.Schema({
     SName: String,
-    SID: String,
+    SID: {type: String, unique : true },
     SEmail: String,
     SPhone: Number,
     SGSTIN: String,
