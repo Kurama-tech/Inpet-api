@@ -29,6 +29,26 @@ router.get('/get/customers', async function(req,res){
     res.status(200).send(data);
 });
 
+router.delete('/delete/supplier/:id', async function(req, res){
+    var id = req.params.id;
+        await suppliers.findByIdAndDelete(id,function(err, resp){
+            if (err) throw res.status(400).send("unwanted error!! "+ err.message);;
+            console.log(err);
+            console.log("Updated one record: "+ resp);
+            res.status(200).send(resp);
+        });
+});
+
+router.delete('/delete/customer/:id', async function(req, res){
+    var id = req.params.id;
+        await customers.findByIdAndDelete(id,function(err, resp){
+            if (err) throw res.status(400).send("unwanted error!! "+ err.message);;
+            console.log(err);
+            console.log("Updated one record: "+ resp);
+            res.status(200).send(resp);
+        });
+});
+
 router.post('/add/supplier', async function(req, res, next){
     let incommingdata = req.body
     console.log(typeof(incommingdata))
