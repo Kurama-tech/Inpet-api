@@ -7,6 +7,7 @@ const supplierSchema = moongoose.Schema({
     SPhone: Number,
     SGSTIN: String,
     SAddress: {
+        AddressLine: String,
         City: String,
         State: String,
         PinCode: String,
@@ -19,6 +20,7 @@ const supplierSchema = moongoose.Schema({
    },
     
     BankingDetails: {
+       AccountNumber: String,
        BankName: String,
        AccountName: String,
        AccountType: String,
