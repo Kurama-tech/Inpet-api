@@ -34,7 +34,7 @@ try {
     if(process.env.CLOUD === true){
         ConnectStr = DB_URL
     }
-    moongoose.connect(ConnectStr, function(error) {
+    moongoose.connect(ConnectStr, options={useNewUrlParser: true, useUnifiedTopology: true} ,function(error) {
         console.log('Error connecting to DB ::', error);
     });
     console.log('Connected Successfully');
