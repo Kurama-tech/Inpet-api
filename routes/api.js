@@ -56,6 +56,8 @@ router.post('/add/supplier', async function(req, res, next){
     console.log(TobeInserted);
     try {
         await TobeInserted.save(function(err, resp){
+            console.log(err)
+            console.log(resp)
             if (err) res.status(400).send("unwanted error!! "+ err.message);
             console.log("inserted one record: "+ resp);
             res.status(200).send(resp);
@@ -72,6 +74,8 @@ router.post('/add/customers', async function(req, res, next){
     console.log(TobeInserted);
     try {
         await TobeInserted.save(function(err, resp){
+            console.log(err)
+            console.log(resp)
             if (err) res.status(400).send("unwanted error!! "+ err.message);
             console.log("inserted one record: "+ resp);
             res.status(200).send(resp);

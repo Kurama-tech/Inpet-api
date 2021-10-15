@@ -31,16 +31,23 @@ if(process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD){
 async function connectDB(){
 try {
     var ConnectStr = DB_URL + DB_NAME
-    if(process.env.CLOUD === true){
+    if(process.env.CLOUD === true || process.env.CLOUD === 'true'){
         ConnectStr = DB_URL
     }
+    console.log(ConnectStr);
     moongoose.connect(ConnectStr, options={useNewUrlParser: true, useUnifiedTopology: true} ,function(error) {
-        console.log('Error connecting to DB ::', error);
+        if(error != undefined){
+            console.log('Error connecting to DB ::', error);
+        }
+        else{
+            console.log('Connected to DB Successfully');
+        } 
     });
-    console.log('Connected Successfully');
     return moongoose.connection;
  } catch (error) {
-    console.log('Error connecting to DB ::', error);
+    if(error != null){
+        console.log('Error connecting to DB ::', error);
+    } 
 }
 }
 
