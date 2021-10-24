@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dotenv = require('dotenv').config();
-const {db, users, suppliers, customers, categories, termination, inventory} = require('../schemas/users');
+const {db, users, suppliers, customers, categories, termination, inventory, package} = require('../schemas/users');
 
 
 function getModel(mode, incommingdata){
