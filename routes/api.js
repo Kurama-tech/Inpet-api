@@ -100,13 +100,13 @@ router.get('/get/inventory/all', async function(req,res){
 });
 
 router.get('/get/inventory/:value/:description', async function(req,res){
-    let data = await inventory.find({Value: req.params.value, Description: req.params.description}).exec();
-    let countQTY = 0
-    data.forEach((value)=>{
-        countQTY = countQTY + value.Quantity 
-    })
+    let data = await inventory.find({Value: req.params.value, Description: req.params.description}).limit(1).sort({$natural:-1}).exec();
+    //let countQTY = 0
+    //data.forEach((value)=>{
+    //    countQTY = countQTY + value.Quantity 
+    //})
     const result = {
-        "totalQTY": countQTY,
+        "totalQTY": data.CalculatedQTY, // countQTY,
         "data": data
     }
     res.status(200).send(result);
