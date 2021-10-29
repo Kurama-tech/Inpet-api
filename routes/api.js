@@ -227,7 +227,7 @@ router.post('/add/inventoryEntry/Batch', async function(req, res, next){
             res.status(408).send("unwanted error!! "+ error);
         } 
         try{
-            inventory.insertMany(temp).then(function(err, resp){
+            await inventory.insertMany(temp).then(function(err, resp){
                 console.log(err)
                 console.log(resp)
                 if (err) res.status(400).send("unwanted error!! "+ err.message);
