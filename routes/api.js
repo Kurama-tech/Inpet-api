@@ -212,7 +212,6 @@ router.post('/add/inventoryEntry', async function(req, res, next){
 
 router.post('/add/inventoryEntry/Batch', async function(req, res, next){
     let incommingdata = req.body
-    console.log(typeof(incommingdata))
     if(incommingdata.length <= 0){
         res.status(408).send("Indalid Data Input!!")
     }
@@ -228,8 +227,8 @@ router.post('/add/inventoryEntry/Batch', async function(req, res, next){
         } 
         try{
             await inventory.insertMany(temp).then(function(err, resp){
-                console.log(err)
-                console.log(resp)
+                console.log("error: " + err)
+                console.log("resp: " + resp)
                 if (err) res.status(400).send("unwanted error!! "+ err.message);
                 console.log("inserted records: "+ resp);
                 res.status(200).send(resp);
