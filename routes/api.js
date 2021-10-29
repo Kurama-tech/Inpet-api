@@ -199,8 +199,8 @@ router.post('/add/inventoryEntry', async function(req, res, next){
     console.log(TobeInserted);
     try {
         await TobeInserted.save(function(err, resp){
-            console.log(err)
-            console.log(resp)
+            console.log("error: " + err)
+            console.log("resp: " + resp)
             if (err) res.status(400).send("unwanted error!! "+ err.message);
             console.log("inserted one record: "+ resp);
             res.status(200).send(resp);
