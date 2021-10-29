@@ -18,7 +18,14 @@ const InventorySchema = moongoose.Schema({
     Value: String,
     Comments: String,
     Quantity: Number,
-    TotalQATM: Number
+    TotalQATM: Number,
+    SubTotal: Number,
+    Project: String,
+    Cost: Number,
+    GST: Number,
+    GSTAMT: Number,
+    CalculatedQTY: Number,
+    Total: Number
 })
 
 module.exports.InventorySchema = InventorySchema;

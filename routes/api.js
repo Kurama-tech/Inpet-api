@@ -36,8 +36,15 @@ function getInventoryModel(incommingdata){
         Description: incommingdata.Description,
         Value: incommingdata.Value,
         Comments: incommingdata.Comments,
-        Quantity: incommingdata.Quantity,
-        TotalQATM: incommingdata.TotalQATM
+        Quantity: Number(incommingdata.Quantity),
+        TotalQATM: incommingdata.TotalQATM,
+        SubTotal: incommingdata.SubTotal,
+        Project: incommingdata.Project,
+        Cost: incommingdata.Cost,
+        GST: incommingdata.GST,
+        GSTAMT: incommingdata.GSTAMT,
+        CalculatedQTY: incommingdata.CalculatedQTY,
+        Total: incommingdata.Total
     })
 }
 
@@ -203,6 +210,36 @@ router.post('/add/inventoryEntry', async function(req, res, next){
     } 
 });
 
+router.post('/add/inventoryEntry/Batch', async function(req, res, next){
+    let incommingdata = req.body
+    console.log(typeof(incommingdata))
+    if(incommingdata.length <= 0){
+        res.status(408).send("Indalid Data Input!!")
+    }
+    else{
+        var temp = [];
+        try {
+        incommingdata.forEach((element)=>{
+            var TobeInserted = getInventoryModel(element);
+            temp.push(TobeInserted)
+        })
+        } catch (error) {
+            res.status(408).send("unwanted error!! "+ error);
+        } 
+        try{
+            inventory.insertMany(temp).then(function(err, resp){
+                console.log(err)
+                console.log(resp)
+                if (err) res.status(400).send("unwanted error!! "+ err.message);
+                console.log("inserted records: "+ resp);
+                res.status(200).send(resp);
+            });
+        } catch (error) {
+            res.status(408).send("unwanted error!! "+ error);
+        } 
+    }
+});
+
 router.post('/add/category', async function(req, res, next){
     let incommingdata = req.body
     console.log(typeof(incommingdata))
@@ -306,7 +343,7 @@ router.put('/edit/inventory/:id', async function(req, res, next){
     //let oldSid = req.params.sid;
     let incommingdata = req.body;
     console.log(typeof(incommingdata))
-    var query = {_id: id, SID: oldSid};
+    var query = {_id: id};
     let update = {
         Date: incommingdata.Date,
         Name: incommingdata.Name,
@@ -324,8 +361,15 @@ router.put('/edit/inventory/:id', async function(req, res, next){
         Description: incommingdata.Description,
         Value: incommingdata.Value,
         Comments: incommingdata.Comments,
-        Quantity: incommingdata.Quantity,
-        TotalQATM: incommingdata.TotalQATM
+        Quantity: Number(incommingdata.Quantity),
+        TotalQATM: incommingdata.TotalQATM,
+        SubTotal: incommingdata.SubTotal,
+        Project: incommingdata.Project,
+        Cost: incommingdata.Cost,
+        GST: incommingdata.GST,
+        GSTAMT: incommingdata.GSTAMT,
+        CalculatedQTY: incommingdata.CalculatedQTY,
+        Total: incommingdata.Total
     };
     let options = {upsert: true, new: true, setDefaultsOnInsert: true};
         await inventory.findOneAndUpdate(query,update,options,function(err, resp){
