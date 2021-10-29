@@ -226,12 +226,12 @@ router.post('/add/inventoryEntry/Batch', async function(req, res, next){
             res.status(408).send("unwanted error!! "+ error);
         } 
         try{
-            await inventory.insertMany(temp).then(function(err, resp){
-                console.log("error: " + err)
-                console.log("resp: " + resp)
-                if (err) res.status(400).send("unwanted error!! "+ err.message);
-                console.log("inserted records: "+ resp);
-                res.status(200).send(resp);
+            await inventory.insertMany(temp).then(function(){
+                console.log("inserted records: "+ temp.toString());
+                res.status(200).send(temp);
+            }).catch(function(error){
+                console.log("error: " + error.message);
+                res.status(400).send("unwanted error!! "+ err.message);
             });
         } catch (error) {
             res.status(408).send("unwanted error!! "+ error);
