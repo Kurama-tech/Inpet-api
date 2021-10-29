@@ -105,9 +105,9 @@ router.get('/get/inventory/:value/:description', async function(req,res){
     //data.forEach((value)=>{
     //    countQTY = countQTY + value.Quantity 
     //})
-    console.log(data.toString())
+    console.log(data['CalculatedQTY'])
     const result = {
-        "totalQTY": data.CalculatedQTY, // countQTY,
+        "totalQTY": data['CalculatedQTY'], // countQTY,
         "data": data
     }
     res.status(200).send(result);
